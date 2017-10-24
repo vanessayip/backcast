@@ -6,6 +6,7 @@ var AppView = Backbone.View.extend({
     this.video = new Video(exampleVideoData[1]);
     this.videos = new Videos(exampleVideoData); 
     this.render();
+    this.videos.on('select', (model) => new VideoPlayerView({el: '.player', model: model}).render());
   },
 
 
