@@ -1,9 +1,15 @@
 var VideoPlayerView = Backbone.View.extend({
-
-  render: function() {
-    this.$el.html(this.template(this.model.attributes));
-    this.$el.find('.video-player-details h3').text(this.model.get('title'));
-    this.$el.find('.video-player-details div').text(this.model.get('description'));
+  initialize: function() {
+    this.collection.on('select', this.render, this);
+    this.collection.on('sync', this.render, this);
+  }, 
+  
+  render: function(e) {
+    if (e.length > 1) {
+      this.$el.html(this.template(e.models[0].attributes));
+    } else {
+      this.$el.html(this.template(e.attributes));
+    }
     return this;
   },
 
